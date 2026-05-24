@@ -118,6 +118,16 @@ button, input, textarea, select {
     outline: none;
 }
 
+/* Keyboard Accessibility Focus Indicator */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
 /* Typography Helpers & Lines */
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-header);
@@ -371,6 +381,9 @@ section {
     gap: 6px;
     width: 30px;
     z-index: 1001; /* Keep it on top of drawer overlay */
+    background: none;
+    border: none;
+    padding: 0;
 }
 
 .hamburger span {
@@ -1196,7 +1209,8 @@ textarea.form-input {
 
 .whatsapp-tooltip {
     position: absolute;
-    right: 70px; /* appears to the right in RTL */
+    left: 70px; /* appears to the right of the button in RTL/LTR */
+    right: auto;
     top: 50%;
     transform: translateY(-50%);
     background: var(--bg-light);
