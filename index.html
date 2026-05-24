@@ -12,6 +12,13 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="authentit_site/images.cdn-files-a.com/uploads/9285393/2000_66388fdcd6de3_filter_66389150d61dd.jpg">
     
+    <!-- Inline Theme Initialization to Prevent Screen Flash (FOUC) -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +28,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Drawer Backdrop Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
 
     <!-- Sticky Navigation Navbar -->
     <header class="main-header" id="header">
@@ -40,10 +50,20 @@
                 <a href="#contact" class="nav-link">ליצירת קשר</a>
             </nav>
             
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-controls">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" class="theme-toggle-btn" aria-label="שינוי מצב עיצוב (כהה/בהיר)">
+                    <!-- Sun Icon (shows in dark mode) -->
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <!-- Moon Icon (shows in light mode) -->
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </header>
@@ -53,7 +73,7 @@
         <img class="hero-bg" src="authentit_site/images.cdn-files-a.com/uploads/9285393/2000_66388fdcd6de3_filter_66389150d61dd.jpg" alt="אותנטית קלפי השראה">
         <div class="hero-overlay"></div>
         <div class="container hero-container">
-            <div class="hero-content" data-aos="fade-up">
+            <div class="hero-content">
                 <h1>לבטא את עצמך<br>בדרך שהכי מתאימה לך.</h1>
                 <p>להפסיק לשתוק. לבחור את הדרך שהכי מתאימה לך לבטא את עצמך. ליצור מקום לבריאות במערכות היחסים בחייך.</p>
                 <div class="hero-cta">
@@ -62,14 +82,13 @@
                 </div>
             </div>
             <div class="hero-image">
-                <!-- Displays the visual layout of the main product in high-fidelity -->
                 <img src="authentit_site/images.cdn-files-a.com/uploads/9285393/800_66394837bb0b0.jpg" alt="קלפי השראה אותנטית">
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section class="about section-padding" id="about">
+    <section class="about" id="about">
         <div class="container about-grid">
             <div class="about-text">
                 <span class="section-subtitle">מיקוד והשראה</span>
@@ -89,9 +108,9 @@
     </section>
 
     <!-- Statistics Section -->
-    <section class="stats-section section-padding" id="stats">
+    <section class="stats-section text-center" id="stats">
         <div class="container">
-            <div style="text-align: center; max-width: 800px; margin: 0 auto 50px auto;">
+            <div style="max-width: 800px; margin: 0 auto 50px auto;">
                 <span class="section-subtitle">נתונים ומחקרים</span>
                 <h2 class="section-title">הידעת?</h2>
                 <p style="color: var(--text-muted); font-size: 1.15rem;">בעולם המודרני, רבים מתמודדים עם קשיים בהצבת גבולות, תקשורת אפקטיבית וניהול רגשות. תחושת חוסר אונים וחוסר סיפוק מלווה אותנו לא פעם, ופוגעת ביכולתנו לנהל חיים בריאים ומאושרים.</p>
@@ -123,9 +142,9 @@
     </section>
 
     <!-- Dynamic Products Grid Section -->
-    <section class="products-section section-padding" id="products">
+    <section class="products-section text-center" id="products">
         <div class="container">
-            <div style="text-align: center; max-width: 800px; margin: 0 auto 40px auto;">
+            <div style="max-width: 800px; margin: 0 auto 40px auto;">
                 <span class="section-subtitle">הקטלוג שלנו</span>
                 <h2 class="section-title">לרכישת ערכות ומתנות</h2>
                 <p style="color: var(--text-muted); font-size: 1.1rem;">רכישה מאובטחת ומהירה. המוצרים יסופקו באריזה מעוצבת ואיכותית.</p>
@@ -141,41 +160,37 @@
     </section>
 
     <!-- Features / Benefits Section -->
-    <section class="features-section section-padding" id="benefits">
+    <section class="features-section text-center" id="benefits">
         <div class="container">
-            <div style="text-align: center; max-width: 800px; margin: 0 auto 50px auto;">
+            <div style="max-width: 800px; margin: 0 auto 50px auto;">
                 <span class="section-subtitle">מה מייחד את הקלפים?</span>
                 <h2 class="section-title">יתרונות הקלפים</h2>
             </div>
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <!-- Compass/Directions Icon -->
+                    <div class="feature-icon-wrapper text-center" style="margin-left: auto; margin-right: auto;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>
                     </div>
                     <h3 class="feature-title">אפשרויות מגוונות לשימוש</h3>
                     <p class="feature-desc">בחבילה קלף נוסף עם רעיונות לשימוש אישי, זוגי וקבוצתי. אין דרך אחת נכונה להשתמש בקלפים - היו יצירתיים והתאימו אותם למטרות שלכן.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <!-- Message/Communication Icon -->
+                    <div class="feature-icon-wrapper text-center" style="margin-left: auto; margin-right: auto;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                     </div>
                     <h3 class="feature-title">מתאימים לכל שיחה</h3>
                     <p class="feature-desc">באפשרותך לבחור את הקלף המתאים עבור האדם, הסיטואציה בה אתם נמצאים ומערכת היחסים אותה את מבקשת ליצור.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <!-- Bag/Convenience Icon -->
+                    <div class="feature-icon-wrapper text-center" style="margin-left: auto; margin-right: auto;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                     </div>
                     <h3 class="feature-title">קל ונוח לשימוש</h3>
                     <p class="feature-desc">ניתן להשתמש בקלפים בבית, בעבודה או בכל מקום אחר. הקלפים מגיעים בשקית בד מעוצבת הניתנת לנשיאה נוחה בתיק לכל מקום.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">
-                        <!-- Users/All Ages Icon -->
+                    <div class="feature-icon-wrapper text-center" style="margin-left: auto; margin-right: auto;">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
                     <h3 class="feature-title">מתאים לכל גיל</h3>
@@ -186,10 +201,9 @@
     </section>
 
     <!-- Our Story Section -->
-    <section class="story-section section-padding" id="story">
+    <section class="story-section" id="story">
         <div class="container story-grid">
             <div class="story-image-wrap">
-                <!-- Using the legacy background assets to display the creators and the original brand atmosphere -->
                 <img src="authentit_site/files.cdn-files-a.com/uploads/9285393/2000_68f8858591f14.jpg" alt="חנה וינברגר ושרון בן-רחמים - אותנטית">
             </div>
             
@@ -200,13 +214,13 @@
                 <p>ניסיון ההוראה הרב שצברנו לאורך השנים העניק לנו הבנה מעמיקה של האתגרים הרבים המשפיעים על תקשורת בריאה במערכות יחסים. זיהינו כי מערכות יחסים פוגעניות לרוב אינן מתחילות בכוונה זדונית, אלא נובעות מחוסר בכלים לניהול קונפליקטים ותקשורת אפקטיבית. כתוצאה מכך, נוצרים דפוסים חוזרים של ציפיות ואכזבות, המובילים להתדרדרות היחסים ולפגיעה.</p>
                 <p>ההבנה כי אפילו אפשרות אחת נוספת יכולה להוביל לשינוי חיובי משמעותי במערכות יחסים, הניעה אותנו להקים את "אותנטית". חנות ייחודית זו נולדה מתוך רצון להנגיש את הידע והניסיון הרב שצברנו לאנשים רבים ככל האפשר. אנו שואפות לסייע לאנשים להבין טוב יותר את הגבולות האישיים שלהם ולפתח כלים לתקשורת יעילה סביבם.</p>
                 <p>בתקופה בה השוני בין אנשים מודגש יותר מתמיד, בחרנו להתמקד ביצירת כלים המאפשרים תקשורת פתוחה סביב השוני. אנו מאמינות שדרך כלים אלו, ניתן לפתוח צוהר לקבלת עצמית וקבלת האחר, ובכך לחולל שינוי חיובי ביחסים בין אנשים בחברה.</p>
-                <strong style="color: var(--primary-color); font-size: 1.2rem; display: block; margin-top: 20px;">"אותנטית" - כלים לשינוי אמיתי.</strong>
+                <span class="story-quote">"אותנטית" - כלים לשינוי אמיתי.</span>
             </div>
         </div>
     </section>
 
     <!-- Contact & Footer Section -->
-    <section class="contact-section section-padding" id="contact">
+    <section class="contact-section" id="contact">
         <div class="container contact-grid">
             <div class="contact-info">
                 <span class="section-subtitle">צור קשר</span>
@@ -302,7 +316,7 @@
         </div>
     </section>
 
-    <!-- Global Footer copyrights -->
+    <!-- Global Footer -->
     <footer class="footer-bottom">
         <div class="container">
             <p>© 2026 אותנטית - כל הזכויות שמורות. | נבנה עם אהבה ועצמה</p>
@@ -311,6 +325,20 @@
 
     <!-- Vanilla Javascript Async Engine & Interactive Logic -->
     <script>
+        // 0. Dark/Light Theme Switcher & Storage System
+        const themeToggle = document.getElementById('themeToggle');
+        
+        themeToggle.addEventListener('click', () => {
+            let theme = 'light';
+            if (document.documentElement.getAttribute('data-theme') !== 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                theme = 'dark';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            localStorage.setItem('theme', theme);
+        });
+
         // 1. Dynamic Products Catalog Fetch & Rendering Engine
         document.addEventListener('DOMContentLoaded', () => {
             const productsContainer = document.getElementById('products-container');
@@ -361,21 +389,29 @@
                 });
         });
 
-        // 2. Responsive Mobile Navbar Menu Handler
+        // 2. Responsive Mobile Navbar Menu Drawer & Overlay Handler
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
+        const navOverlay = document.getElementById('navOverlay');
         const navLinks = document.querySelectorAll('.nav-link');
 
-        hamburger.addEventListener('click', () => {
+        function toggleMenu() {
             navMenu.classList.toggle('open');
             hamburger.classList.toggle('active');
-        });
+            navOverlay.classList.toggle('open');
+            document.body.classList.toggle('no-scroll');
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        navOverlay.addEventListener('click', toggleMenu);
 
         // Close menu when links are clicked
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('open');
                 hamburger.classList.remove('active');
+                navOverlay.classList.remove('open');
+                document.body.classList.remove('no-scroll');
                 
                 // Toggle active menu highlight state
                 navLinks.forEach(item => item.classList.remove('active'));
@@ -417,7 +453,7 @@
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/body',
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
                 body: json
