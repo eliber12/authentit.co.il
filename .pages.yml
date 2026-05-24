@@ -1,6 +1,8 @@
 # PagesCMS Schema Configuration File
 # Read more at: https://pagescms.org
 
+version: 1
+
 media:
   input: authentit_site/images.cdn-files-a.com/uploads/9285393
   output: /authentit_site/images.cdn-files-a.com/uploads/9285393
@@ -13,8 +15,7 @@ content:
     fields:
       - name: products
         label: מוצרים בחנות
-        type: object
-        list: true
+        type: list
         fields:
           - name: id
             label: מזהה מוצר (באנגלית, ללא רווחים)
