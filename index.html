@@ -361,11 +361,15 @@
                     
                     // Build cards
                     data.products.forEach(product => {
+                        let imgPath = product.image_path || '';
+                        if (imgPath.startsWith('/')) {
+                            imgPath = imgPath.substring(1);
+                        }
                         const card = document.createElement('div');
                         card.className = 'product-card';
                         card.innerHTML = `
                             <div class="product-img-container">
-                                <img src="${product.image_path}" alt="${product.title}" class="product-img" loading="lazy">
+                                <img src="${imgPath}" alt="${product.title}" class="product-img" loading="lazy">
                             </div>
                             <div class="product-info">
                                 <h3 class="product-title">${product.title}</h3>
