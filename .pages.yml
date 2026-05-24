@@ -14,7 +14,8 @@ content:
     fields:
       - name: products
         label: מוצרים בחנות
-        type: list
+        type: object
+        list: true
         fields:
           - name: id
             label: מזהה מוצר (באנגלית, ללא רווחים)
