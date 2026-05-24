@@ -42,7 +42,7 @@
 }
 
 /* Dark theme variables override */
-[data-theme="dark"] {
+:root[data-theme="dark"] {
     --primary-color: #8da477;
     --primary-dark: #6e8457;
     --primary-light: #adc299;
@@ -226,6 +226,8 @@ section {
     display: flex;
     align-items: center;
     gap: 16px;
+    position: relative;
+    z-index: 1010;
 }
 
 .nav-menu {
@@ -276,6 +278,9 @@ section {
     cursor: pointer;
     transition: transform var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
     border: 1px solid var(--border-color);
+    position: relative;
+    z-index: 1011;
+    pointer-events: auto;
 }
 
 .theme-toggle-btn:hover {
