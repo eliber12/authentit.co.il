@@ -30,7 +30,15 @@ content:
             type: text
             required: true
           - name: price
-            label: מחיר המוצר (למשל: 120 ₪)
+            label: מחיר המוצר (למשל: 80 ₪)
+            type: string
+            required: true
+          - name: shipping
+            label: פרטי משלוח (למשל: משלוח: 30 ₪)
+            type: string
+            required: true
+          - name: pickup
+            label: פרטי איסוף עצמי (למשל: איסוף עצמי: חינם מבית שמש)
             type: string
             required: true
           - name: image_path
