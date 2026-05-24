@@ -1,0 +1,42 @@
+# PagesCMS Schema Configuration File
+# Read more at: https://pagescms.org
+
+media:
+  input: authentit_site/images.cdn-files-a.com/uploads/9285393
+  output: /authentit_site/images.cdn-files-a.com/uploads/9285393
+
+content:
+  - name: products
+    label: קטלוג מוצרים
+    type: file
+    path: products.json
+    fields:
+      - name: products
+        label: מוצרים בחנות
+        type: object
+        list: true
+        fields:
+          - name: id
+            label: מזהה מוצר (באנגלית, ללא רווחים)
+            type: string
+            required: true
+          - name: title
+            label: שם המוצר
+            type: string
+            required: true
+          - name: description
+            label: תיאור המוצר
+            type: text
+            required: true
+          - name: price
+            label: מחיר המוצר (למשל: 120 ₪)
+            type: string
+            required: true
+          - name: image_path
+            label: תמונת מוצר (בחירה מהמדיה)
+            type: image
+            required: true
+          - name: checkout_url
+            label: קישור לרכישה (ווטסאפ או דף תשלום)
+            type: string
+            required: true
