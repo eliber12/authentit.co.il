@@ -244,25 +244,8 @@
                 <span class="section-subtitle">מה אומרות עלינו</span>
                 <h2 class="section-title">לקוחות ממליצות</h2>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card reveal reveal-d1">
-                    <span class="testimonial-quote-mark">"</span>
-                    <span class="testimonial-stars">★★★★★</span>
-                    <p class="testimonial-text">הקלפים שינו את הדרך שאני מתקשרת עם הילדים שלי. כלי מדהים שנותן לי ביטחון בכל שיחה!</p>
-                    <span class="testimonial-author">— מיכל כ., ירושלים</span>
-                </div>
-                <div class="testimonial-card reveal reveal-d2">
-                    <span class="testimonial-quote-mark">"</span>
-                    <span class="testimonial-stars">★★★★★</span>
-                    <p class="testimonial-text">קניתי במתנה לחברה הכי טובה שלי. היא מתה על זה! עכשיו אנחנו משחקות ביחד כל שבוע.</p>
-                    <span class="testimonial-author">— רונית ש., תל אביב</span>
-                </div>
-                <div class="testimonial-card reveal reveal-d3">
-                    <span class="testimonial-quote-mark">"</span>
-                    <span class="testimonial-stars">★★★★★</span>
-                    <p class="testimonial-text">המלצתי כבר ל-4 חברות. הקלפים פשוט עובדים — פותחים שיחות שלא יכולתי להתחיל לבד.</p>
-                    <span class="testimonial-author">— דנה ל., חיפה</span>
-                </div>
+            <div class="testimonials-grid" id="testimonials-container">
+                <div style="grid-column: 1/-1; text-align: center; padding: 20px;">טוען המלצות...</div>
             </div>
         </div>
     </section>
@@ -512,6 +495,50 @@
                     productsContainer.innerHTML = `
                         <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #b73a3a;">
                             אירעה שגיאה בטעינת קטלוג המוצרים. אנא נסי שוב מאוחר יותר.
+                        </div>
+                    `;
+                });
+        });
+
+        // 1.5. Dynamic Testimonials Fetch & Rendering Engine
+        document.addEventListener('DOMContentLoaded', () => {
+            const testimonialsContainer = document.getElementById('testimonials-container');
+            if (!testimonialsContainer) return;
+            
+            fetch('./testimonials.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('שגיאה בטעינת קובץ ההמלצות');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data.testimonials || data.testimonials.length === 0) {
+                        testimonialsContainer.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 40px;">אין המלצות זמינות כרגע.</div>';
+                        return;
+                    }
+                    
+                    // Clear the loader
+                    testimonialsContainer.innerHTML = '';
+                    
+                    // Build cards
+                    data.testimonials.forEach((testimonial, index) => {
+                        const card = document.createElement('div');
+                        card.className = `testimonial-card reveal reveal-d${(index % 3) + 1}`;
+                        card.innerHTML = `
+                            <span class="testimonial-quote-mark">"</span>
+                            <span class="testimonial-stars">${testimonial.stars || '★★★★★'}</span>
+                            <p class="testimonial-text">${testimonial.quote}</p>
+                            <span class="testimonial-author">— ${testimonial.author}</span>
+                        `;
+                        testimonialsContainer.appendChild(card);
+                    });
+                })
+                .catch(error => {
+                    console.error('Testimonials fetch error:', error);
+                    testimonialsContainer.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #b73a3a;">
+                            אירעה שגיאה בטעינת המלצות הלקוחות.
                         </div>
                     `;
                 });

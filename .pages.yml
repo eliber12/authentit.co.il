@@ -41,3 +41,25 @@ content:
             label: קישור לרכישה (ווטסאפ או דף תשלום)
             type: string
             required: true
+  - name: testimonials
+    label: המלצות לקוחות
+    type: file
+    path: testimonials.json
+    fields:
+      - name: testimonials
+        label: המלצות
+        type: object
+        list: true
+        fields:
+          - name: quote
+            label: הציטוט / המלצה
+            type: text
+            required: true
+          - name: stars
+            label: מספר כוכבים (למשל: ★★★★★)
+            type: string
+            required: true
+          - name: author
+            label: שם הממליצה (למשל: מיכל כ., ירושלים)
+            type: string
+            required: true
