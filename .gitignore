@@ -1,0 +1,23 @@
+# Ignore legacy backup folders and extractors
+/AUTHTENTIT/
+/new_site/
+/extracted_assets/
+/*.py
+/content_backup.json
+/theme.json
+/all_website_text.txt
+
+# Ignore SITE123 bloated platforms/frameworks in authentit_site
+/authentit_site/accessibility.f-static.com/
+/authentit_site/analytics.loadweb.com/
+/authentit_site/cdn-cms-s-8-4.f-static.net/
+/authentit_site/cdn-cms.f-static.com/
+/authentit_site/cdn-cms.f-static.net/
+/authentit_site/fonts.gstatic.com/
+/authentit_site/static.s123-cdn-network-a.com/
+/authentit_site/www.authentit.co.il/
+
+# Ignore local OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
