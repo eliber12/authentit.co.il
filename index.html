@@ -445,46 +445,53 @@
         const form = document.getElementById('contactForm');
         const result = document.getElementById('form-result');
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
-            
-            result.style.color = "var(--text-dark)";
-            result.innerHTML = "שולח הודעה...";
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const submitBtn = form.querySelector('.form-submit-btn');
+                const originalBtnText = submitBtn.textContent;
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'שולח...';
+                
+                result.style.color = "var(--text-dark)";
+                result.innerHTML = "שולח הודעה...";
 
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
-            })
-            .then(async (response) => {
-                let jsonRes = await response.json();
-                if (response.status == 200) {
-                    result.style.color = "var(--primary-color)";
-                    result.innerHTML = "ההודעה נשלחה בהצלחה! נחזור אלייך בהקדם.";
-                    form.reset();
-                } else {
-                    console.log(response);
+                const formData = new FormData(form);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    body: formData
+                })
+                .then(async (response) => {
+                    let jsonRes = await response.json();
+                    if (jsonRes.success) {
+                        result.style.color = "var(--primary-color)";
+                        result.innerHTML = "✅ ההודעה נשלחה בהצלחה! נחזור אלייך בהקדם.";
+                        form.reset();
+                    } else {
+                        console.error('Web3Forms error:', jsonRes);
+                        result.style.color = "#b73a3a";
+                        result.innerHTML = "❌ " + (jsonRes.message || "אירעה שגיאה בשליחת הטופס. אנא נסי שוב.");
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error:', error);
                     result.style.color = "#b73a3a";
-                    result.innerHTML = jsonRes.message || "אירעה שגיאה בשליחת הטופס. אנא נסי שוב.";
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                result.style.color = "#b73a3a";
-                result.innerHTML = "אירעה שגיאה בחיבור לרשת. אנא נסי שוב.";
-            })
-            .then(() => {
-                setTimeout(() => {
-                    result.innerHTML = "";
-                }, 5000);
+                    result.innerHTML = "❌ אירעה שגיאה בחיבור לרשת. אנא נסי שוב.";
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                    setTimeout(() => {
+                        result.innerHTML = "";
+                    }, 6000);
+                });
             });
-        });
+        }
     </script>
 </body>
 </html>
